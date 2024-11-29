@@ -15,8 +15,8 @@ import controller.ESaldoNoValido;
 
 class CuentaSA {
    private String titularCuenta;
-   private int    debeCuenta;
-   private int    haberCuenta;
+   private double    debeCuenta;
+   private double    haberCuenta;
 
    
       /** Constructor basico          *
@@ -36,18 +36,18 @@ class CuentaSA {
    }
 
    
-   public int getDebe () {
+   public double getDebe () {
       return debeCuenta;
    }
 
    
-   public int getHaber () {
+   public double getHaber () {
       return haberCuenta;
    }
 
    
       /** Devuelve el saldo */
-   public int getSaldo () {
+   public double getSaldo () {
       return haberCuenta - debeCuenta;
    }
 
@@ -65,7 +65,6 @@ class CuentaSA {
    }
 
 
-   
       /* Metodo Imposicion */
    public boolean Imposicion(int cantidad) {
 	haberCuenta += cantidad;
@@ -82,5 +81,4 @@ class CuentaSA {
    }
 
 }
-
 /******** Fin de CuentaSA.java ***************/

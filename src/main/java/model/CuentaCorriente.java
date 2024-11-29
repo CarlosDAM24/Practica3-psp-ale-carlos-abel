@@ -7,7 +7,38 @@ public class CuentaCorriente extends CuentaSA {
 	
 	public CuentaCorriente(String titular) {
 		super(titular);
-		// TODO Auto-generated constructor stub
+		
+		comisionMantenimiento = 20.5;
+		comisionMensual = "Comision por retirar dinero";
+		
+	}
+
+	public CuentaCorriente(String titular, Double comisionMantenimiento, String comisionMensual) {
+		super(titular);
+		this.comisionMantenimiento = comisionMantenimiento;
+		this.comisionMensual = comisionMensual;
+	}
+
+	public Double getComisionMantenimiento() {
+		return comisionMantenimiento;
+	}
+
+	public void setComisionMantenimiento(Double comisionMantenimiento) {
+		this.comisionMantenimiento = comisionMantenimiento;
+	}
+
+	public String getComisionMensual() {
+		return comisionMensual;
+	}
+
+	public void setComisionMensual(String comisionMensual) {
+		this.comisionMensual = comisionMensual;
+	}
+
+	@Override
+	public String toString() {
+		return "CuentaCorriente [comisionMantenimiento=" + comisionMantenimiento + ", comisionMensual="
+				+ comisionMensual + "]";
 	}
 
 }
