@@ -17,6 +17,7 @@ class BancoSA {
     gestionBanco();
   }
 
+  
   private static void gestionBanco() {
     estadoBanco();
 
