@@ -5,6 +5,8 @@ import model.CuentaCorriente;
 import model.CuentaSA;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Utils {
@@ -15,7 +17,6 @@ public class Utils {
     // Constructor
     public Utils() {
         cuentas = new ArrayList<>();
-
     }
 
     // Función para añadir una cuenta y guardarla en el fichero
@@ -28,34 +29,33 @@ public class Utils {
         }
     }
 
-    // Método para recorrer el fichero en orden directo
-    public void recorrerDirecto() {
-        System.out.println("Recorriendo el fichero en orden directo:");
+    // Método para leer el fichero y almacenar las cuentas en la lista
+    public void cargarCuentasDesdeFichero() {
+        System.out.println("Cargando cuentas desde el fichero:");
         try (BufferedReader reader = new BufferedReader(new FileReader(FICHERO_CUENTAS))) {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 CuentaSA cuenta = parseLinea(linea);
-                System.out.println(cuenta);
+                cuentas.add(cuenta);  // Guardar la cuenta en la lista
             }
         } catch (IOException e) {
             System.err.println("Error al leer el fichero: " + e.getMessage());
         }
     }
 
+    // Método para recorrer el fichero en orden directo
+    public void recorrerDirecto() {
+        System.out.println("Recorriendo el fichero en orden directo:");
+        for (CuentaSA cuenta : cuentas) {
+            System.out.println(cuenta);
+        }
+    }
+
     // Método para recorrer el fichero en orden inverso
     public void recorrerInverso() {
         System.out.println("Recorriendo el fichero en orden inverso:");
-        try (BufferedReader reader = new BufferedReader(new FileReader(FICHERO_CUENTAS))) {
-            ArrayList<CuentaSA> cuentas = new ArrayList<>();
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                cuentas.add(parseLinea(linea));
-            }
-            for (int i = cuentas.size() - 1; i >= 0; i--) {
-                System.out.println(cuentas.get(i));
-            }
-        } catch (IOException e) {
-            System.err.println("Error al leer el fichero: " + e.getMessage());
+        for (int i = cuentas.size() - 1; i >= 0; i--) {
+            System.out.println(cuentas.get(i));
         }
     }
 
@@ -65,24 +65,24 @@ public class Utils {
         String titular = partes[0];
         double debe = Double.parseDouble(partes[1]);
         double haber = Double.parseDouble(partes[2]);
-        // Aquí determinamos el tipo de cuenta basándonos en la información
-        if (titular.contains("Ahorro")) {
+        String fechaString = partes[3];
+
+        // Convertir la fecha de apertura desde el formato String
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaApertura = LocalDate.parse(fechaString, formatter);
+
+        // Aquí determinamos el tipo de cuenta basándonos en el nombre del titular
+        if (titular.startsWith("Corriente")) {
+            return new CuentaCorriente(titular, debe, haber);
+        } else if (titular.startsWith("Ahorro")) {
             return new CuentaAhorro(titular, debe, haber);
         } else {
-            return new CuentaCorriente(titular, debe, haber);
+            return new CuentaSA(titular, debe, haber); // En caso de un tipo desconocido
         }
     }
 
-    public static void main(String[] args) {
-        // Crear una instancia de Utils
-        Utils utils = new Utils();
-
-        // Recorrer el fichero en orden directo
-        System.out.println("Recorriendo el fichero en orden directo:");
-        utils.recorrerDirecto();
-
-        // Recorrer el fichero en orden inverso
-        System.out.println("\nRecorriendo el fichero en orden inverso:");
-        utils.recorrerInverso();
+    // Getter para las cuentas
+    public ArrayList<CuentaSA> getCuentas() {
+        return cuentas;
     }
 }
