@@ -13,7 +13,7 @@ import controller.ESaldoNoValido;
  *	- Cantidad HABER (tipo entero)
  */
 
-class CuentaSA {
+public class CuentaSA {
    private String titularCuenta;
    private double    debeCuenta;
    private double    haberCuenta;
@@ -22,7 +22,7 @@ class CuentaSA {
       /** Constructor basico          *
         *  - Requiere necesariamente  *
         *    un titular               */
-   public CuentaSA(String titular) {
+   public CuentaSA(String titular, double debeCuenta, double haberCuenta) {
       titularCuenta = titular;
       debeCuenta    = 0;
       haberCuenta   = 0;
@@ -51,19 +51,6 @@ class CuentaSA {
       return haberCuenta - debeCuenta;
    }
 
-   
-      /** Metodo toString para la     *
-        * impresion del contenido de  *
-	* de una cuenta               */
-   public String toString() {
-      String imprime = "   #>CUENTA: " +
-			titularCuenta;
-      imprime += "\n\tDebe : " + getDebe();
-      imprime += "\n\tHaber: " + getHaber();
-      imprime += "\n\tSaldo: " + getSaldo();
-      return imprime;
-   }
-
 
       /* Metodo Imposicion */
    public boolean Imposicion(int cantidad) {
@@ -80,5 +67,14 @@ class CuentaSA {
 		throw new ESaldoNoValido("Error: saldo Negativo");
    }
 
+
+@Override
+public String toString() {
+	return "CuentaSA [titularCuenta=" + titularCuenta + ", debeCuenta=" + debeCuenta + ", haberCuenta=" + haberCuenta
+			+ "]";
 }
+
+}
+
+
 /******** Fin de CuentaSA.java ***************/

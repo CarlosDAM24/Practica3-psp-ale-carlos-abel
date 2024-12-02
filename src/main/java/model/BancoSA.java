@@ -10,7 +10,7 @@ class BancoSA {
     System.out.println("Sistema Banco S.A.: Control de Cuentas");
     System.out.println("Creando cuentas");
       
-    cuenta1 = new CuentaSA("Anibal Torres Merino");
+    cuenta1 = new CuentaSA("Anibal Torres Merino", 0);
     cuenta2 = new CuentaSA("Ana Alvarez Montes",25);
     cuenta3 = new CuentaSA("Teresa Benitez Romero",150);
 

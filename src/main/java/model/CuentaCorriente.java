@@ -5,20 +5,13 @@ public class CuentaCorriente extends CuentaSA {
 	private Double comisionMantenimiento;
 	private Double comisionMensual;
 	
-	public CuentaCorriente(String titular) {
-		super(titular);
-		
-		comisionMantenimiento = 20.5;
-		comisionMensual = 250.0;
-		
-	}
-
-	public CuentaCorriente(String titular, Double comisionMantenimiento, Double comisionMensual) {
-		super(titular);
+	
+	public CuentaCorriente(String titular, double debeCuenta, double haberCuenta, Double comisionMantenimiento, Double comisionMensual) {
+		super(titular, debeCuenta, haberCuenta);
 		this.comisionMantenimiento = comisionMantenimiento;
 		this.comisionMensual = comisionMensual;
 	}
-
+  
 	public Double getComisionMantenimiento() {
 		return comisionMantenimiento;
 	}
@@ -35,10 +28,5 @@ public class CuentaCorriente extends CuentaSA {
 		this.comisionMensual = comisionMensual;
 	}
 
-	@Override
-	public String toString() {
-		return "CuentaCorriente [comisionMantenimiento=" + comisionMantenimiento + ", comisionMensual="
-				+ comisionMensual + "]";
-	}
-
+	
 }

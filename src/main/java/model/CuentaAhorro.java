@@ -5,20 +5,14 @@ public class CuentaAhorro extends CuentaSA{
 	private Double interesAnual;
 	private Double limiteRetiros;
 	
-	public CuentaAhorro(String titular) {
-		super(titular);
+	public CuentaAhorro(String titular, double debeCuenta, double haberCuenta, Double interesAnual, Double limiteRetiros) {
+		super(titular, debeCuenta, haberCuenta);
 		
 		interesAnual = 150.24;
 		limiteRetiros = 3000.00;
 		
 	}
-
-	public CuentaAhorro(String titular, Double interesAnual, Double limiteRetiros) {
-		super(titular);
-		this.interesAnual = interesAnual;
-		this.limiteRetiros = limiteRetiros;
-	}
-
+	
 	public Double getInteresAnual() {
 		return interesAnual;
 	}
@@ -27,9 +21,6 @@ public class CuentaAhorro extends CuentaSA{
 		return limiteRetiros;
 	}
 
-	@Override
-	public String toString() {
-		return "CuentaAhorro [interesAnual=" + interesAnual + ", limiteRetiros=" + limiteRetiros + "]";
-	}
+	
 	
 }
