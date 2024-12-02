@@ -6,10 +6,11 @@ public class CuentaCorriente extends CuentaSA {
 	private Double comisionMensual;
 	
 	
-	public CuentaCorriente(String titular, double debeCuenta, double haberCuenta, Double comisionMantenimiento, Double comisionMensual) {
+	public CuentaCorriente(String titular, double debeCuenta, double haberCuenta) {
 		super(titular, debeCuenta, haberCuenta);
-		this.comisionMantenimiento = comisionMantenimiento;
-		this.comisionMensual = comisionMensual;
+		
+		this.comisionMantenimiento = 150.0;
+		this.comisionMensual = 147.8;
 	}
   
 	public Double getComisionMantenimiento() {
