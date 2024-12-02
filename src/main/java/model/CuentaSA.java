@@ -36,17 +36,37 @@ public class CuentaSA {
    }
 
    
-   public double getDebe () {
-      return debeCuenta;
-   }
-
    
-   public double getHaber () {
-      return haberCuenta;
-   }
+   public String getTitularCuenta() {
+	return titularCuenta;
+}
 
+
+	public void setTitularCuenta(String titularCuenta) {
+		this.titularCuenta = titularCuenta;
+	}
    
-      /** Devuelve el saldo */
+      public double getDebeCuenta() {
+		return debeCuenta;
+	}
+
+
+	public void setDebeCuenta(double debeCuenta) {
+		this.debeCuenta = debeCuenta;
+	}
+
+
+	public double getHaberCuenta() {
+		return haberCuenta;
+	}
+
+
+	public void setHaberCuenta(double haberCuenta) {
+		this.haberCuenta = haberCuenta;
+	}
+
+
+	/** Devuelve el saldo */
    public double getSaldo () {
       return haberCuenta - debeCuenta;
    }
