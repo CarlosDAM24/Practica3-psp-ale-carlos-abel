@@ -98,5 +98,3 @@ public class Terminal {
 
 }
 
-
-/******** Fin de Terminal.java ***************/

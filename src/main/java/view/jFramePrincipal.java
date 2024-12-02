@@ -154,9 +154,9 @@ public class jFramePrincipal extends JFrame {
         modeloLista.addElement(" \n ");
         for (CuentaSA cuenta : cuentas) {
             if (cuenta instanceof CuentaCorriente) {
-                modeloLista.addElement("Titular: "+((CuentaCorriente) cuenta).getTitularCuenta()+"   Debe: "+((CuentaCorriente) cuenta).getDebeCuenta()+"   Haber: "+((CuentaCorriente) cuenta).getHaberCuenta()+"   Saldo: "+((CuentaCorriente) cuenta).getSaldo() +"   Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento());
+                modeloLista.addElement("Titular: "+((CuentaCorriente) cuenta).getTitularCuenta()+"   Debe: "+((CuentaCorriente) cuenta).getDebeCuenta()+"   Haber: "+((CuentaCorriente) cuenta).getHaberCuenta()+"   Saldo: "+((CuentaCorriente) cuenta).getSaldo() +"   Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento()+"   Fecha Apertura: " + ((CuentaCorriente) cuenta).getFechaApertura());
             } else if (cuenta instanceof CuentaAhorro) {
-                modeloLista.addElement("Titular: "+((CuentaAhorro) cuenta).getTitularCuenta()+"   Debe: "+((CuentaAhorro) cuenta).getDebeCuenta()+"   Haber: "+((CuentaAhorro) cuenta).getHaberCuenta()+"   Saldo: "+((CuentaAhorro) cuenta).getHaberCuenta()+"   Comisión/Mes: "+((CuentaAhorro) cuenta).getInteresAnual()+"   Comision/Mantenimiento: " +((CuentaAhorro) cuenta).getLimiteRetiros());
+                modeloLista.addElement("Titular: "+((CuentaAhorro) cuenta).getTitularCuenta()+"   Debe: "+((CuentaAhorro) cuenta).getDebeCuenta()+"   Haber: "+((CuentaAhorro) cuenta).getHaberCuenta()+"   Saldo: "+((CuentaAhorro) cuenta).getSaldo()+"   Interés Anual: "+((CuentaAhorro) cuenta).getInteresAnual()+"   Límite Retiros: " +((CuentaAhorro) cuenta).getLimiteRetiros()+"   Fecha Apertura: " + ((CuentaAhorro) cuenta).getFechaApertura());
             } else {
                 modeloLista.addElement(cuenta.toString()); // Caso general para CuentaSA
             }

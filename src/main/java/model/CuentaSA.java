@@ -1,6 +1,10 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 import controller.ESaldoNoValido;
+import controller.ICalculoFechas;
 
 /**
  * Esta clase representa estructuras de tipo
@@ -13,10 +17,11 @@ import controller.ESaldoNoValido;
  *	- Cantidad HABER (tipo entero)
  */
 
-public class CuentaSA {
+public class CuentaSA implements ICalculoFechas {
    private String titularCuenta;
    private double    debeCuenta;
    private double    haberCuenta;
+   private LocalDate fechaApertura;
 
    
       /** Constructor basico          *
@@ -26,6 +31,7 @@ public class CuentaSA {
       titularCuenta = titular;
       this.debeCuenta = debeCuenta;
       this.haberCuenta = haberCuenta;
+      this.fechaApertura = LocalDate.now();
    }
 
    
@@ -35,11 +41,39 @@ public class CuentaSA {
       haberCuenta   = imposicionInicial;
    }
 
+   @Override
+	public boolean hanPasadoMeses(LocalDate fechaApertura, int meses) {
+		
+		LocalDate actual = LocalDate.now();
+		Period periodo = Period.between(fechaApertura, actual);
+	
+		return periodo.toTotalMonths() >= meses;
+	}
+
+	@Override
+	public boolean hanPasadoAnios(LocalDate fechaApertura, int anios) {
+		
+		LocalDate actual = LocalDate.now();
+		Period periodo = Period.between(fechaApertura, actual);
+		
+		return false;
+	}
+	
+	
+	public LocalDate getFechaApertura() {
+		return fechaApertura;
+		
+	}
+	
+	
+	public void setFechaApertura(LocalDate fechaApertura) {
+		this.fechaApertura = fechaApertura;
+	}
    
-   
+	
    public String getTitularCuenta() {
 	return titularCuenta;
-}
+   }
 
 
 	public void setTitularCuenta(String titularCuenta) {
