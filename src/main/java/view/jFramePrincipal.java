@@ -1,6 +1,7 @@
 package view;
 
 import controller.PrecargaDatos;
+import controller.Utils;
 import model.CuentaAhorro;
 import model.CuentaCorriente;
 import model.CuentaSA;
@@ -16,15 +17,9 @@ public class jFramePrincipal extends JFrame {
     private JList<String> listaCuentas;
     private DefaultListModel<String> modeloLista;
 
-    private PrecargaDatos precargaDatos;
     private ArrayList<CuentaSA> cuentas = new ArrayList<>();
 
     public jFramePrincipal() {
-         new PrecargaDatos(cuentas);
-//        CuentaAhorro cuentaAhorro = new CuentaAhorro("Ale",200.00,200.00);
-//        cuentas.add(cuentaAhorro);
-//        CuentaCorriente cuentaCorriente = new CuentaCorriente("Abel",2000.00,2000.00);
-//        cuentas.add(cuentaCorriente);
         setTitle("Gestión de Cuentas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -77,6 +72,14 @@ public class jFramePrincipal extends JFrame {
 
         // Botón Buscar (actualizar lista)
         btnBuscar.addActionListener(e -> actualizarListaCuentas());
+
+        btnCargar.addActionListener(e -> cargarDatos());
+    }
+
+    private  void cargarDatos(){
+        Utils utils = new Utils();
+        utils.cargarCuentasDesdeFichero();
+        this.cuentas = utils.getCuentas();
     }
 
     private void mostrarFormularioCreacion() {
