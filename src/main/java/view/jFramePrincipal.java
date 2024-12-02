@@ -1,5 +1,9 @@
 package view;
 
+import model.CuentaAhorro;
+import model.CuentaCorriente;
+import model.CuentaSA;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,9 +15,13 @@ public class jFramePrincipal extends JFrame {
     private JList<String> listaCuentas;
     private DefaultListModel<String> modeloLista;
 
-    //private ArrayList<CuentaSA> cuentas = new ArrayList<>();
+    private ArrayList<CuentaSA> cuentas = new ArrayList<>();
 
     public jFramePrincipal() {
+        CuentaAhorro cuentaAhorro = new CuentaAhorro("Ale",200.00,200.00);
+        cuentas.add(cuentaAhorro);
+        CuentaCorriente cuentaCorriente = new CuentaCorriente("Abel",2000.00,2000.00);
+        cuentas.add(cuentaCorriente);
         setTitle("Gestión de Cuentas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
@@ -140,9 +148,16 @@ public class jFramePrincipal extends JFrame {
 
     private void actualizarListaCuentas() {
         modeloLista.clear();
-//        for (CuentaSA cuenta : cuentas) {
-//            modeloLista.addElement(cuenta.toString());
-//        }
+        modeloLista.addElement(" \n ");
+        for (CuentaSA cuenta : cuentas) {
+            if (cuenta instanceof CuentaCorriente) {
+                modeloLista.addElement("Titular: "+((CuentaCorriente) cuenta).getTitularCuenta()+"   Debe: "+((CuentaCorriente) cuenta).getDebeCuenta()+"   Haber: "+((CuentaCorriente) cuenta).getHaberCuenta() +"   Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento());
+            } else if (cuenta instanceof CuentaAhorro) {
+                modeloLista.addElement(((CuentaAhorro) cuenta).toString());
+            } else {
+                modeloLista.addElement(cuenta.toString()); // Caso general para CuentaSA
+            }
+        }
     }
 
     public static void main(String[] args) {

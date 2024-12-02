@@ -24,8 +24,8 @@ public class CuentaSA {
         *    un titular               */
    public CuentaSA(String titular, double debeCuenta, double haberCuenta) {
       titularCuenta = titular;
-      debeCuenta    = 0;
-      haberCuenta   = 0;
+      this.debeCuenta = debeCuenta;
+      this.haberCuenta = haberCuenta;
    }
 
    
