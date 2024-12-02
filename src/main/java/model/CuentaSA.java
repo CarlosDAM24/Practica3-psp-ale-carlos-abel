@@ -91,7 +91,7 @@ public class CuentaSA {
 @Override
 public String toString() {
 	return "CuentaSA [titularCuenta=" + titularCuenta + ", debeCuenta=" + debeCuenta + ", haberCuenta=" + haberCuenta
-			+ "]";
+			+ ", getSaldo()=" + getSaldo() + "]";
 }
 
 }

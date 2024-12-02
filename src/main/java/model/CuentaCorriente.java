@@ -29,5 +29,10 @@ public class CuentaCorriente extends CuentaSA {
 		this.comisionMensual = comisionMensual;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "CuentaCorriente [comisionMantenimiento=" + comisionMantenimiento + ", comisionMensual="
+				+ comisionMensual + ", getTitularCuenta()=" + getTitularCuenta() + ", getDebeCuenta()="
+				+ getDebeCuenta() + ", getHaberCuenta()=" + getHaberCuenta() + ", getSaldo()=" + getSaldo() + "]";
+	}
 }

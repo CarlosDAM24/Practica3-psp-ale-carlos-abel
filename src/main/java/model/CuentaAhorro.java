@@ -21,6 +21,11 @@ public class CuentaAhorro extends CuentaSA{
 		return limiteRetiros;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "CuentaAhorro [interesAnual=" + interesAnual + ", limiteRetiros=" + limiteRetiros
+				+ ", getTitularCuenta()=" + getTitularCuenta() + ", getDebeCuenta()=" + getDebeCuenta()
+				+ ", getHaberCuenta()=" + getHaberCuenta() + ", getSaldo()=" + getSaldo() + "]";
+	}
+
 }
