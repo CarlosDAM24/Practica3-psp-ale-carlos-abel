@@ -16,13 +16,6 @@ public class Utils {
     public Utils() {
         cuentas = new ArrayList<>();
 
-        // Escribir las cuentas precargadas en el fichero solo si está vacío
-        if (new File(FICHERO_CUENTAS).length() == 0) {
-            for (CuentaSA cuenta : cuentas) {
-                añadirCuenta(cuenta);
-            }
-            System.out.println("Las cuentas han sido añadidas al fichero.");
-        }
     }
 
     // Función para añadir una cuenta y guardarla en el fichero
