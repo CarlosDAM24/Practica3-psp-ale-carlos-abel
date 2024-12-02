@@ -3,17 +3,17 @@ package model;
 public class CuentaCorriente extends CuentaSA {
 
 	private Double comisionMantenimiento;
-	private String comisionMensual;
+	private Double comisionMensual;
 	
 	public CuentaCorriente(String titular) {
 		super(titular);
 		
 		comisionMantenimiento = 20.5;
-		comisionMensual = "Comision por retirar dinero";
+		comisionMensual = 250.0;
 		
 	}
 
-	public CuentaCorriente(String titular, Double comisionMantenimiento, String comisionMensual) {
+	public CuentaCorriente(String titular, Double comisionMantenimiento, Double comisionMensual) {
 		super(titular);
 		this.comisionMantenimiento = comisionMantenimiento;
 		this.comisionMensual = comisionMensual;
@@ -27,11 +27,11 @@ public class CuentaCorriente extends CuentaSA {
 		this.comisionMantenimiento = comisionMantenimiento;
 	}
 
-	public String getComisionMensual() {
+	public Double getComisionMensual() {
 		return comisionMensual;
 	}
 
-	public void setComisionMensual(String comisionMensual) {
+	public void setComisionMensual(Double comisionMensual) {
 		this.comisionMensual = comisionMensual;
 	}
 

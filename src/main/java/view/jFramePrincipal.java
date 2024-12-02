@@ -57,6 +57,7 @@ public class jFramePrincipal extends JFrame {
         addListeners();
 
         setVisible(true);
+                
     }
 
     private void addListeners() {
