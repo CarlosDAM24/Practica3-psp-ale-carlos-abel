@@ -43,6 +43,24 @@ public class Utils {
         }
     }
 
+    public void guardarNuevaCuenta(CuentaSA nuevaCuenta) {
+        // Leer las cuentas existentes del fichero para evitar sobreescritura
+        cargarCuentasDesdeFichero();
+
+        // Añadir la nueva cuenta a la lista en memoria
+        cuentas.add(nuevaCuenta);
+
+        // Escribir todas las cuentas en el fichero
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FICHERO_CUENTAS))) {
+            for (CuentaSA cuenta : cuentas) {
+                writer.write(cuenta.getTitularCuenta() + "," + cuenta.getDebeCuenta() + "," + cuenta.getHaberCuenta() + "," + cuenta.getFechaApertura());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error al guardar las cuentas: " + e.getMessage());
+        }
+    }
+
     // Método para recorrer el fichero en orden directo
     public void recorrerDirecto() {
         System.out.println("Recorriendo el fichero en orden directo:");
