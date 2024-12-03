@@ -74,12 +74,18 @@ public class jFramePrincipal extends JFrame {
         btnBuscar.addActionListener(e -> actualizarListaCuentas());
 
         btnCargar.addActionListener(e -> cargarDatos());
+
+        btnVaciar.addActionListener(e -> vaciarDatos());
     }
 
     private  void cargarDatos(){
         Utils utils = new Utils();
         utils.cargarCuentasDesdeFichero();
         this.cuentas = utils.getCuentas();
+    }
+
+    private void vaciarDatos(){
+        this.cuentas.clear();
     }
 
     private void mostrarFormularioCreacion() {
@@ -115,13 +121,21 @@ public class jFramePrincipal extends JFrame {
             panelSubclase.removeAll();
             if (comboTipo.getSelectedItem().equals("Cuenta Ahorro")) {
                 panelSubclase.add(new JLabel("Interés Anual:"));
+                txtExtra1.setText("150.24");
+                txtExtra1.disable();
                 panelSubclase.add(txtExtra1);
                 panelSubclase.add(new JLabel("Interés Retiros:"));
+                txtExtra2.setText("3000.00");
+                txtExtra2.disable();
                 panelSubclase.add(txtExtra2);
             } else {
                 panelSubclase.add(new JLabel("Comisión Mantenimiento:"));
+                txtExtra1.setText("150.0");
+                txtExtra1.disable();
                 panelSubclase.add(txtExtra1);
                 panelSubclase.add(new JLabel("Comisión Mensual:"));
+                txtExtra2.setText("147.8");
+                txtExtra2.disable();
                 panelSubclase.add(txtExtra2);
             }
             panelSubclase.revalidate();
@@ -130,20 +144,48 @@ public class jFramePrincipal extends JFrame {
 
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.addActionListener(e -> {
-            String titular = txtTitular.getText();
-            double debe = Double.parseDouble(txtDebe.getText());
-            double haber = Double.parseDouble(txtHaber.getText());
-            if (comboTipo.getSelectedItem().equals("Cuenta Ahorro")) {
-                double interesAnual = Double.parseDouble(txtExtra1.getText());
-                double interesRetiros = Double.parseDouble(txtExtra2.getText());
-                //cuentas.add(new CuentaAhorro(titular, debe, haber, interesAnual, interesRetiros));
-            } else {
-                double comisionMantenimiento = Double.parseDouble(txtExtra1.getText());
-                double comisionMensual = Double.parseDouble(txtExtra2.getText());
-                //cuentas.add(new CuentaCorriente(titular, debe, haber, comisionMantenimiento, comisionMensual));
+            try {
+                String titular = txtTitular.getText();
+                double debe = Double.parseDouble(txtDebe.getText());
+                double haber = Double.parseDouble(txtHaber.getText());
+
+                // Validación: el saldo no puede iniciar en 0, y haber debe ser mayor que debe
+                if (haber == 0 || haber <= debe) {
+                    JOptionPane.showMessageDialog(formCuenta,
+                            "El saldo inicial no puede ser 0, y el haber debe ser mayor que el debe.",
+                            "Error de Validación",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Crear cuenta según el tipo seleccionado
+                if (comboTipo.getSelectedItem().equals("Cuenta Ahorro")) {
+                    // Descomentar y completar si tienes los campos adicionales
+                    // double interesAnual = Double.parseDouble(txtExtra1.getText());
+                    // double interesRetiros = Double.parseDouble(txtExtra2.getText());
+                    cuentas.add(new CuentaAhorro(titular, debe, haber));
+                } else if (comboTipo.getSelectedItem().equals("Cuenta Corriente")) {
+                    // Descomentar y completar si tienes los campos adicionales
+                    // double comisionMantenimiento = Double.parseDouble(txtExtra1.getText());
+                    // double comisionMensual = Double.parseDouble(txtExtra2.getText());
+                    cuentas.add(new CuentaCorriente(titular, debe, haber));
+                }
+
+                // Confirmación de creación
+                JOptionPane.showMessageDialog(formCuenta, "Cuenta creada correctamente.");
+                formCuenta.dispose();
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(formCuenta,
+                        "Por favor, introduce valores numéricos válidos en los campos de debe y haber.",
+                        "Error de Formato",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(formCuenta,
+                        "Ocurrió un error inesperado: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            JOptionPane.showMessageDialog(formCuenta, "Cuenta creada correctamente.");
-            formCuenta.dispose();
         });
 
         formCuenta.add(panelFormulario, BorderLayout.NORTH);
@@ -157,9 +199,13 @@ public class jFramePrincipal extends JFrame {
         modeloLista.addElement(" \n ");
         for (CuentaSA cuenta : cuentas) {
             if (cuenta instanceof CuentaCorriente) {
-                modeloLista.addElement("Titular: "+((CuentaCorriente) cuenta).getTitularCuenta()+"   Debe: "+((CuentaCorriente) cuenta).getDebeCuenta()+"   Haber: "+((CuentaCorriente) cuenta).getHaberCuenta()+"   Saldo: "+((CuentaCorriente) cuenta).getSaldo() +"   Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento()+"   Fecha Apertura: " + ((CuentaCorriente) cuenta).getFechaApertura());
+                modeloLista.addElement("\n");
+                modeloLista.addElement("Titular: "+((CuentaCorriente) cuenta).getTitularCuenta()+"   Debe: "+((CuentaCorriente) cuenta).getDebeCuenta()+"   Haber: "+((CuentaCorriente) cuenta).getHaberCuenta()+"   Saldo: "+Math.round(((CuentaCorriente) cuenta).getSaldo() * 100.0) / 100.0);
+                modeloLista.addElement("Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento()+"   Fecha Apertura: " + ((CuentaCorriente) cuenta).getFechaApertura());
             } else if (cuenta instanceof CuentaAhorro) {
-                modeloLista.addElement("Titular: "+((CuentaAhorro) cuenta).getTitularCuenta()+"   Debe: "+((CuentaAhorro) cuenta).getDebeCuenta()+"   Haber: "+((CuentaAhorro) cuenta).getHaberCuenta()+"   Saldo: "+((CuentaAhorro) cuenta).getSaldo()+"   Interés Anual: "+((CuentaAhorro) cuenta).getInteresAnual()+"   Límite Retiros: " +((CuentaAhorro) cuenta).getLimiteRetiros()+"   Fecha Apertura: " + ((CuentaAhorro) cuenta).getFechaApertura());
+                modeloLista.addElement("\n");
+                modeloLista.addElement("Titular: "+((CuentaAhorro) cuenta).getTitularCuenta()+"   Debe: "+((CuentaAhorro) cuenta).getDebeCuenta()+"   Haber: "+((CuentaAhorro) cuenta).getHaberCuenta()+"   Saldo: "+Math.round(((CuentaAhorro) cuenta).getSaldo() * 100.0) / 100.0);
+                modeloLista.addElement("Interés Anual: "+((CuentaAhorro) cuenta).getInteresAnual()+"   Límite Retiros: " +((CuentaAhorro) cuenta).getLimiteRetiros()+"   Fecha Apertura: " + ((CuentaAhorro) cuenta).getFechaApertura());
             } else {
                 modeloLista.addElement(cuenta.toString()); // Caso general para CuentaSA
             }
