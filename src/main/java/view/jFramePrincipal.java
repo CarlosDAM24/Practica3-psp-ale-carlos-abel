@@ -9,6 +9,7 @@ import model.CuentaSA;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class jFramePrincipal extends JFrame {
@@ -203,16 +204,17 @@ public class jFramePrincipal extends JFrame {
 
     private void actualizarListaCuentas() {
         modeloLista.clear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         modeloLista.addElement(" \n ");
         for (CuentaSA cuenta : cuentas) {
             if (cuenta instanceof CuentaCorriente) {
                 modeloLista.addElement("\n");
                 modeloLista.addElement("Titular: "+((CuentaCorriente) cuenta).getTitularCuenta()+"   Debe: "+((CuentaCorriente) cuenta).getDebeCuenta()+"   Haber: "+((CuentaCorriente) cuenta).getHaberCuenta()+"   Saldo: "+Math.round(((CuentaCorriente) cuenta).getSaldo() * 100.0) / 100.0);
-                modeloLista.addElement("Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento()+"   Fecha Apertura: " + ((CuentaCorriente) cuenta).getFechaApertura());
+                modeloLista.addElement("Comisión/Mes: "+((CuentaCorriente) cuenta).getComisionMensual()+"   Comision/Mantenimiento: " + ((CuentaCorriente) cuenta).getComisionMantenimiento()+"   Fecha Apertura: " + ((CuentaCorriente) cuenta).getFechaApertura().format(formatter));
             } else if (cuenta instanceof CuentaAhorro) {
                 modeloLista.addElement("\n");
                 modeloLista.addElement("Titular: "+((CuentaAhorro) cuenta).getTitularCuenta()+"   Debe: "+((CuentaAhorro) cuenta).getDebeCuenta()+"   Haber: "+((CuentaAhorro) cuenta).getHaberCuenta()+"   Saldo: "+Math.round(((CuentaAhorro) cuenta).getSaldo() * 100.0) / 100.0);
-                modeloLista.addElement("Interés Anual: "+((CuentaAhorro) cuenta).getInteresAnual()+"   Límite Retiros: " +((CuentaAhorro) cuenta).getLimiteRetiros()+"   Fecha Apertura: " + ((CuentaAhorro) cuenta).getFechaApertura());
+                modeloLista.addElement("Interés Anual: "+((CuentaAhorro) cuenta).getInteresAnual()+"   Límite Retiros: " +((CuentaAhorro) cuenta).getLimiteRetiros()+"   Fecha Apertura: " + ((CuentaAhorro) cuenta).getFechaApertura().format(formatter));
             } else {
                 modeloLista.addElement(cuenta.toString()); // Caso general para CuentaSA
             }
