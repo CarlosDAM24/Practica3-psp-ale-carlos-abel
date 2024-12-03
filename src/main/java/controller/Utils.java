@@ -43,19 +43,15 @@ public class Utils {
         }
     }
 
-    public void guardarNuevaCuenta(CuentaSA nuevaCuenta) {
-        // Leer las cuentas existentes del fichero para evitar sobreescritura
-        cargarCuentasDesdeFichero();
-
-        // Añadir la nueva cuenta a la lista en memoria
-        cuentas.add(nuevaCuenta);
-
-        // Escribir todas las cuentas en el fichero
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FICHERO_CUENTAS))) {
-            for (CuentaSA cuenta : cuentas) {
+    public void guardarCuentasDesdeLista(ArrayList<CuentaSA> listaCuentas) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FICHERO_CUENTAS, true))) { // Modo append
+            // Escribir las cuentas de la lista al final del fichero
+            for (CuentaSA cuenta : listaCuentas) {
                 writer.write(cuenta.getTitularCuenta() + "," + cuenta.getDebeCuenta() + "," + cuenta.getHaberCuenta() + "," + cuenta.getFechaApertura());
                 writer.newLine();
             }
+            // Vaciar la lista después de guardar los datos
+            listaCuentas.clear();
         } catch (IOException e) {
             System.err.println("Error al guardar las cuentas: " + e.getMessage());
         }
