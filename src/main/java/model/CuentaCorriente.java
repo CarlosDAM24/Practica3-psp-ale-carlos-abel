@@ -1,13 +1,15 @@
 package model;
 
+import java.time.LocalDate;
+
 public class CuentaCorriente extends CuentaSA {
 
 	private Double comisionMantenimiento;
 	private Double comisionMensual;
 	
 	
-	public CuentaCorriente(String titular, double debeCuenta, double haberCuenta) {
-		super(titular, debeCuenta, haberCuenta);
+	public CuentaCorriente(String titular, double debeCuenta, double haberCuenta, LocalDate fechaApertura) {
+		super(titular, debeCuenta, haberCuenta, fechaApertura);
 		
 		this.comisionMantenimiento = 150.0;
 		this.comisionMensual = 147.8;

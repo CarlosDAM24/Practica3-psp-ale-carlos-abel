@@ -11,8 +11,8 @@ public class CuentaAhorro extends CuentaSA implements ICalculoFechas{
 	private Double limiteRetiros;
 	
 	
-	public CuentaAhorro(String titular, double debeCuenta, double haberCuenta) {
-		super(titular, debeCuenta, haberCuenta);
+	public CuentaAhorro(String titular, double debeCuenta, double haberCuenta, LocalDate fechaApertura) {
+		super(titular, debeCuenta, haberCuenta, fechaApertura);
 		
 		this.interesAnual = 150.24;
 		this.limiteRetiros = 3000.00;	

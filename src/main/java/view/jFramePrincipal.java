@@ -9,6 +9,7 @@ import model.CuentaSA;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -170,12 +171,12 @@ public class jFramePrincipal extends JFrame {
                     // Descomentar y completar si tienes los campos adicionales
                     // double interesAnual = Double.parseDouble(txtExtra1.getText());
                     // double interesRetiros = Double.parseDouble(txtExtra2.getText());
-                    cuentas.add(new CuentaAhorro(titular, debe, haber));
+                    cuentas.add(new CuentaAhorro(titular, debe, haber, LocalDate.now()));
                 } else if (comboTipo.getSelectedItem().equals("Cuenta Corriente")) {
                     // Descomentar y completar si tienes los campos adicionales
                     // double comisionMantenimiento = Double.parseDouble(txtExtra1.getText());
                     // double comisionMensual = Double.parseDouble(txtExtra2.getText());
-                    cuentas.add(new CuentaCorriente(titular, debe, haber));
+                    cuentas.add(new CuentaCorriente(titular, debe, haber, LocalDate.now()));
                 }
 
                 // Confirmación de creación

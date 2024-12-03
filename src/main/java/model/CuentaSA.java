@@ -27,11 +27,11 @@ public class CuentaSA implements ICalculoFechas {
       /** Constructor basico          *
         *  - Requiere necesariamente  *
         *    un titular               */
-   public CuentaSA(String titular, double debeCuenta, double haberCuenta) {
+   public CuentaSA(String titular, double debeCuenta, double haberCuenta, LocalDate fechaApertura) {
       titularCuenta = titular;
       this.debeCuenta = debeCuenta;
       this.haberCuenta = haberCuenta;
-      this.fechaApertura = LocalDate.now();
+      this.fechaApertura = fechaApertura;
    }
 
    

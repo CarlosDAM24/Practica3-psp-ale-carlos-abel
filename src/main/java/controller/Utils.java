@@ -102,11 +102,11 @@ public class Utils {
 
         // Identificar el tipo de cuenta basándonos en la longitud del array
         if (partes.length == 6 && Double.parseDouble(partes[4]) == 150.24) { // CuentaAhorro
-            return new CuentaAhorro(titular, debe, haber);
+            return new CuentaAhorro(titular, debe, haber, fechaApertura);
         } else if (partes.length == 6) { // CuentaCorriente
-            return new CuentaCorriente(titular, debe, haber);
+            return new CuentaCorriente(titular, debe, haber, fechaApertura);
         } else { // En caso de tipo desconocido
-            return new CuentaSA(titular, debe, haber);
+            return new CuentaSA(titular, debe, haber, fechaApertura);
         }
     }
 
