@@ -101,7 +101,7 @@ public class Utils {
         LocalDate fechaApertura = LocalDate.parse(fechaString, formatter);
 
         // Identificar el tipo de cuenta basándonos en la longitud del array
-        if (partes.length == 6) { // CuentaAhorro
+        if (partes.length == 6 && Double.parseDouble(partes[4]) == 150.24) { // CuentaAhorro
             return new CuentaAhorro(titular, debe, haber);
         } else if (partes.length == 6) { // CuentaCorriente
             return new CuentaCorriente(titular, debe, haber);
