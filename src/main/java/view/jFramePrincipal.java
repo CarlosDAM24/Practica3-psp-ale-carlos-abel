@@ -66,6 +66,8 @@ public class jFramePrincipal extends JFrame {
                 
     }
 
+    Utils utils = new Utils();
+
     private void addListeners() {
         // Botón Crear Cuenta
         btnCrearCuenta.addActionListener(e -> mostrarFormularioCreacion());
@@ -76,6 +78,8 @@ public class jFramePrincipal extends JFrame {
         btnCargar.addActionListener(e -> cargarDatos());
 
         btnVaciar.addActionListener(e -> vaciarDatos());
+
+        btnGuardar.addActionListener(e -> guardarDatos());
     }
 
     private  void cargarDatos(){
@@ -87,6 +91,8 @@ public class jFramePrincipal extends JFrame {
     private void vaciarDatos(){
         this.cuentas.clear();
     }
+
+    private  void guardarDatos(){utils.guardarCuentasDesdeLista(this.cuentas);}
 
     private void mostrarFormularioCreacion() {
         JFrame formCuenta = new JFrame("Nueva Cuenta");
@@ -173,6 +179,7 @@ public class jFramePrincipal extends JFrame {
 
                 // Confirmación de creación
                 JOptionPane.showMessageDialog(formCuenta, "Cuenta creada correctamente.");
+                actualizarListaCuentas();
                 formCuenta.dispose();
 
             } catch (NumberFormatException ex) {

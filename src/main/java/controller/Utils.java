@@ -31,6 +31,7 @@ public class Utils {
 
     // Método para leer el fichero y almacenar las cuentas en la lista
     public void cargarCuentasDesdeFichero() {
+        this.cuentas.clear();
         System.out.println("Cargando cuentas desde el fichero:");
         try (BufferedReader reader = new BufferedReader(new FileReader(FICHERO_CUENTAS))) {
             String linea;
@@ -44,14 +45,28 @@ public class Utils {
     }
 
     public void guardarCuentasDesdeLista(ArrayList<CuentaSA> listaCuentas) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FICHERO_CUENTAS, true))) { // Modo append
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FICHERO_CUENTAS))) {
             // Escribir las cuentas de la lista al final del fichero
             for (CuentaSA cuenta : listaCuentas) {
-                writer.write(cuenta.getTitularCuenta() + "," + cuenta.getDebeCuenta() + "," + cuenta.getHaberCuenta() + "," + cuenta.getFechaApertura());
+                if (cuenta instanceof CuentaAhorro) {
+                    CuentaAhorro ahorro = (CuentaAhorro) cuenta;
+                    writer.write(cuenta.getTitularCuenta() + "," +
+                            cuenta.getDebeCuenta() + "," +
+                            cuenta.getHaberCuenta() + "," +
+                            cuenta.getFechaApertura() + "," +
+                            ahorro.getInteresAnual() + "," +
+                            ahorro.getLimiteRetiros());
+                } else if (cuenta instanceof CuentaCorriente) {
+                    CuentaCorriente corriente = (CuentaCorriente) cuenta;
+                    writer.write(cuenta.getTitularCuenta() + "," +
+                            cuenta.getDebeCuenta() + "," +
+                            cuenta.getHaberCuenta() + "," +
+                            cuenta.getFechaApertura() + "," +
+                            corriente.getComisionMantenimiento() + "," +
+                            corriente.getComisionMensual());
+                }
                 writer.newLine();
             }
-            // Vaciar la lista después de guardar los datos
-            listaCuentas.clear();
         } catch (IOException e) {
             System.err.println("Error al guardar las cuentas: " + e.getMessage());
         }
@@ -85,13 +100,13 @@ public class Utils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaApertura = LocalDate.parse(fechaString, formatter);
 
-        // Aquí determinamos el tipo de cuenta basándonos en el nombre del titular
-        if (titular.startsWith("Corriente")) {
-            return new CuentaCorriente(titular, debe, haber);
-        } else if (titular.startsWith("Ahorro")) {
+        // Identificar el tipo de cuenta basándonos en la longitud del array
+        if (partes.length == 6) { // CuentaAhorro
             return new CuentaAhorro(titular, debe, haber);
-        } else {
-            return new CuentaSA(titular, debe, haber); // En caso de un tipo desconocido
+        } else if (partes.length == 6) { // CuentaCorriente
+            return new CuentaCorriente(titular, debe, haber);
+        } else { // En caso de tipo desconocido
+            return new CuentaSA(titular, debe, haber);
         }
     }
 
